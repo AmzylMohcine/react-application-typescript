@@ -1,8 +1,9 @@
-import ListGroup from "./Components/listGroup"
+import ListGroup from "./Components/ListGroup"
 function App() {
+  const items = ["new york", "tanger", "san mames"]
   return (
     <div>
-      <ListGroup />
+      <ListGroup items={items} heading={"cities"} />
     </div>
   )
 }
