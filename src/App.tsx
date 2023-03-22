@@ -1,6 +1,9 @@
 import { useState } from "react"
-import Alert from "./Components/Alert"
-import Button from "./Components/Button"
+// import Alert from "./Components/Alert"
+import Button from "./Components/Button/Button"
+// import ListGroup from "./Components/ListGroup/ListGroup"
+import "./app.css"
+import { BiAngry } from "react-icons/Bi"
 
 // import ListGroup from "./Components/ListGroup"
 function App() {
@@ -12,7 +15,7 @@ function App() {
 
   return (
     <div>
-      {/* <ListGroup items={items} heading={"cities"} onSelectectItem={handleSelectedItem} /> */}
+      {/* <ListGroup items={items} heading={"cities"} onSelectectItem={handleSelectedItem} />
       {alertVisible && <Alert onClose={() => setAlertVisibility(false)}> My Alert</Alert>}
       <Button
         color="danger"
@@ -20,7 +23,13 @@ function App() {
         onClick={() => {
           setAlertVisibility(true)
         }}
+      /> */}
+      <Button
+        onClick={() => {
+          console.log("You clicked ")
+        }}
       />
+      <BiAngry color="red" size="40" />
     </div>
   )
 }
