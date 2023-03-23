@@ -1,12 +1,12 @@
-import "./Button.css"
+import styles from "./Button.module.css"
 interface Props {
-  // buttonText: string
+  buttonText: string
   onClick: () => void
-  // color?: "primary" | "secondary" | "danger"
+  color?: "primary" | "secondary" | "danger"
 }
-const Button = ({ onClick }: Props) => {
+const Button = ({ buttonText, onClick, color }: Props) => {
   return (
-    <button className="button btn-component" type="button" onClick={onClick}>
+    <button className={[styles.btn, styles["btn-" + color]].join(" ")} type="button" onClick={onClick}>
       {" "}
       My Button
     </button>

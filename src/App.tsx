@@ -4,6 +4,7 @@ import Button from "./Components/Button/Button"
 // import ListGroup from "./Components/ListGroup/ListGroup"
 import "./app.css"
 import { BiAngry } from "react-icons/Bi"
+import { Like } from "./Components/Like/Like"
 
 // import ListGroup from "./Components/ListGroup"
 function App() {
@@ -24,12 +25,20 @@ function App() {
           setAlertVisibility(true)
         }}
       /> */}
-      <Button
+      {/* <Button
+        buttonText="Button"
+        color="primary"
         onClick={() => {
           console.log("You clicked ")
         }}
       />
-      <BiAngry color="red" size="40" />
+      <BiAngry color="red" size="40" /> */}
+
+      <Like
+        onClick={() => {
+          alert("You liked")
+        }}
+      />
     </div>
   )
 }
