@@ -1,14 +1,15 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 // import Alert from "./Components/Alert"
 import Button from "./Components/Button/Button"
 // import ListGroup from "./Components/ListGroup/ListGroup"
 import "./app.css"
-import { BiAngry } from "react-icons/Bi"
-import { Like } from "./Components/Like/Like"
-import produce from "immer"
-import { Navbar } from "./Components/Navbar"
-import { Cart } from "./Components/Cart"
+// import { BiAngry } from "react-icons/Bi"
+// import { Like } from "./Components/Like/Like"
+// import produce from "immer"
+// import { Navbar } from "./Components/Navbar"
+// import { Cart } from "./Components/Cart"
 import { ExpandableText } from "./Components/ExpandableText"
+import { Form } from "./Components/Form"
 
 // import ListGroup from "./Components/ListGroup"
 function App() {
@@ -111,9 +112,16 @@ function App() {
     // )
     // setGame({ ...game, player: { name: "bob" } })
   }
+
+  // const handleform = event => {
+  //   event.preventDefault()
+  //   alert("hello")
+  // }
+
   return (
     <div>
-      <ExpandableText maxChars={100}> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo adipisci asperiores, similique, neque libero iure quisquam aut atque quibusdam dicta quis possimus est saepe et nisi enim fugit! Vel, assumenda. Accusamus id dolores obcaecati neque soluta, eveniet necessitatibus consequuntur maxime, at ipsa esse placeat quasi possimus tenetur exercitationem ex repellendus doloremque autem. Aliquam dicta perferendis pariatur fugit odio maiores voluptatem. Temporibus, mollitia deserunt. Minima aliquid repellat quae nesciunt aut? Soluta, vel illo dolores quia sint iusto facere tenetur provident adipisci dolor. Iure deserunt in amet maiores earum accusantium debitis incidunt? Asperiores debitis modi cupiditate nostrum, corporis officiis nesciunt quia! Quo commodi dicta beatae illo atque corrupti praesentium officia cumque expedita? Incidunt, dolores. Libero sint suscipit voluptate facilis repellendus dignissimos? Labore? </ExpandableText>
+      <Form />
+      {/* <ExpandableText maxChars={80}> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, laborum at! Et consectetur facilis asperiores fugiat, aut repudiandae pariatur, eum molestiae iusto magnam quia vero quae animi quo dicta obcaecati. At ipsam ullam iusto tenetur quisquam rerum quod sit reprehenderit eveniet. Repellendus quos fugit quae est officia eveniet rerum, amet laudantium enim officiis cupiditate! Facere iure quia magni possimus exercitationem! Veritatis perferendis enim illum facere deserunt? Fugiat, sapiente laudantium sit sequi consequuntur pariatur eveniet voluptatum ipsum distinctio et, aut reprehenderit atque! Quae laboriosam repellat voluptatum ducimus nihil, ea ullam repudiandae. Debitis perferendis, eos dolorum voluptates corporis libero at, quod dignissimos provident qui sint sed, asperiores ratione animi assumenda nulla necessitatibus ex illo cupiditate odit! Odit nemo molestiae et nobis consequatur.</ExpandableText> */}
       {/* 
       {cart.items.map((item, index) => (
         <ul key={index}>
