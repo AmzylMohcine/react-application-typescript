@@ -12,6 +12,7 @@ import { ExpandableText } from "./Components/ExpandableText"
 import { Form } from "./Components/Form"
 import { ExpenseList } from "./Expense-tracker/Components/ExpenseList"
 import { ExpenseFilter } from "./Expense-tracker/Components/ExpenseFilter"
+import { CommandList } from "./Commande-tracker/Components/CommandList"
 
 // import ListGroup from "./Components/ListGroup"
 function App() {
@@ -148,6 +149,23 @@ function App() {
     }
   ])
 
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      name: "product1",
+      category: "home",
+      description: "home products",
+      amount: 20
+    },
+    {
+      id: 2,
+      name: "product2",
+      category: "home",
+      description: "home products",
+      amount: 20
+    }
+  ])
+
   const visibleExpenses = selectedCategory ? expenses.filter(e => e.category === selectedCategory) : expenses
 
   return (
@@ -166,6 +184,17 @@ function App() {
           setExpenses(expenses.filter(e => e.id !== id))
         }}
       />
+      <div className="mb-10">
+        <h1> PRODUCT TRACKER </h1>
+      </div>
+
+      <CommandList
+        products={products}
+        onDelete={id => {
+          setProducts(products.filter(e => e.id !== id))
+        }}
+      />
+
       {/* <Form /> */}
       {/* <ExpandableText maxChars={80}> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, laborum at! Et consectetur facilis asperiores fugiat, aut repudiandae pariatur, eum molestiae iusto magnam quia vero quae animi quo dicta obcaecati. At ipsam ullam iusto tenetur quisquam rerum quod sit reprehenderit eveniet. Repellendus quos fugit quae est officia eveniet rerum, amet laudantium enim officiis cupiditate! Facere iure quia magni possimus exercitationem! Veritatis perferendis enim illum facere deserunt? Fugiat, sapiente laudantium sit sequi consequuntur pariatur eveniet voluptatum ipsum distinctio et, aut reprehenderit atque! Quae laboriosam repellat voluptatum ducimus nihil, ea ullam repudiandae. Debitis perferendis, eos dolorum voluptates corporis libero at, quod dignissimos provident qui sint sed, asperiores ratione animi assumenda nulla necessitatibus ex illo cupiditate odit! Odit nemo molestiae et nobis consequatur.</ExpandableText> */}
       {/* 
