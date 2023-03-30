@@ -10,6 +10,8 @@ import "./app.css"
 // import { Cart } from "./Components/Cart"
 import { ExpandableText } from "./Components/ExpandableText"
 import { Form } from "./Components/Form"
+import { ExpenseList } from "./Expense-tracker/Components/ExpenseList"
+import { ExpenseFilter } from "./Expense-tracker/Components/ExpenseFilter"
 
 // import ListGroup from "./Components/ListGroup"
 function App() {
@@ -117,10 +119,54 @@ function App() {
   //   event.preventDefault()
   //   alert("hello")
   // }
+  const [selectedCategory, setSelectedCategory] = useState("")
+
+  const [expenses, setExpenses] = useState([
+    {
+      id: 1,
+      description: "Desc1",
+      amount: 10,
+      category: "Utilities"
+    },
+    {
+      id: 2,
+      description: "Desc2",
+      amount: 10,
+      category: "Utilities"
+    },
+    {
+      id: 3,
+      description: "Desc3",
+      amount: 10,
+      category: "Utilities"
+    },
+    {
+      id: 4,
+      description: "Desc4",
+      amount: 10,
+      category: "Utilities"
+    }
+  ])
+
+  const visibleExpenses = selectedCategory ? expenses.filter(e => e.category === selectedCategory) : expenses
 
   return (
     <div>
-      <Form />
+      <div className="mb-3">
+        <ExpenseFilter
+          onSelectCategory={category => {
+            setSelectedCategory(category)
+          }}
+        />
+      </div>
+
+      <ExpenseList
+        expenses={visibleExpenses}
+        onDelete={id => {
+          setExpenses(expenses.filter(e => e.id !== id))
+        }}
+      />
+      {/* <Form /> */}
       {/* <ExpandableText maxChars={80}> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, laborum at! Et consectetur facilis asperiores fugiat, aut repudiandae pariatur, eum molestiae iusto magnam quia vero quae animi quo dicta obcaecati. At ipsam ullam iusto tenetur quisquam rerum quod sit reprehenderit eveniet. Repellendus quos fugit quae est officia eveniet rerum, amet laudantium enim officiis cupiditate! Facere iure quia magni possimus exercitationem! Veritatis perferendis enim illum facere deserunt? Fugiat, sapiente laudantium sit sequi consequuntur pariatur eveniet voluptatum ipsum distinctio et, aut reprehenderit atque! Quae laboriosam repellat voluptatum ducimus nihil, ea ullam repudiandae. Debitis perferendis, eos dolorum voluptates corporis libero at, quod dignissimos provident qui sint sed, asperiores ratione animi assumenda nulla necessitatibus ex illo cupiditate odit! Odit nemo molestiae et nobis consequatur.</ExpandableText> */}
       {/* 
       {cart.items.map((item, index) => (
