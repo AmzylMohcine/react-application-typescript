@@ -13,6 +13,7 @@ import { Form } from "./Components/Form"
 import { ExpenseList } from "./Expense-tracker/Components/ExpenseList"
 import { ExpenseFilter } from "./Expense-tracker/Components/ExpenseFilter"
 import { CommandList } from "./Commande-tracker/Components/CommandList"
+import { CommandFilter } from "./Commande-tracker/Components/CommandFilter"
 
 // import ListGroup from "./Components/ListGroup"
 function App() {
@@ -121,6 +122,7 @@ function App() {
   //   alert("hello")
   // }
   const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedProduct, setSelectedProduct] = useState("")
 
   const [expenses, setExpenses] = useState([
     {
@@ -153,20 +155,35 @@ function App() {
     {
       id: 1,
       name: "product1",
-      category: "home",
+      category: "Home&Garden",
       description: "home products",
       amount: 20
     },
     {
       id: 2,
       name: "product2",
-      category: "home",
+      category: "Home&Garden",
       description: "home products",
+      amount: 20
+    },
+    {
+      id: 3,
+      name: "product2",
+      category: "Beauty",
+      description: "Beauty products",
+      amount: 20
+    },
+    {
+      id: 4,
+      name: "product2",
+      category: "Sport",
+      description: "Sport products",
       amount: 20
     }
   ])
 
   const visibleExpenses = selectedCategory ? expenses.filter(e => e.category === selectedCategory) : expenses
+  const visibleProduct = selectedProduct ? products.filter(e => e.category === selectedProduct) : products
 
   return (
     <div>
@@ -188,8 +205,16 @@ function App() {
         <h1> PRODUCT TRACKER </h1>
       </div>
 
+      <div className="mb-10">
+        <CommandFilter
+          onSelectCatagory={category => {
+            setSelectedProduct(category)
+          }}
+        />
+      </div>
+
       <CommandList
-        products={products}
+        products={visibleProduct}
         onDelete={id => {
           setProducts(products.filter(e => e.id !== id))
         }}

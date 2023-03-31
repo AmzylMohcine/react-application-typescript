@@ -46,9 +46,10 @@ export const CommandList = ({ products, onDelete }: Props) => {
       <tfoot>
         <tr>
           <td>Total</td>
+          <td></td>
+          <td></td>
+
           <td>$ {products.reduce((acc, product) => product.amount + acc, 0).toFixed(2)}</td>
-          <td></td>
-          <td></td>
         </tr>
       </tfoot>
     </table>
