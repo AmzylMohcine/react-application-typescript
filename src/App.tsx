@@ -14,8 +14,11 @@ import { ExpenseList } from "./Expense-tracker/Components/ExpenseList"
 import { ExpenseFilter } from "./Expense-tracker/Components/ExpenseFilter"
 import { CommandList } from "./Commande-tracker/Components/CommandList"
 import { CommandFilter } from "./Commande-tracker/Components/CommandFilter"
+import { ExpenseForm } from "./Expense-tracker/Components/ExpenseForm"
 
-// import ListGroup from "./Components/ListGroup"
+import categories from "./Expense-tracker/categories"
+import { CommandeForm } from "./Commande-tracker/Components/CommandeForm"
+
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
   // const handleSelectedItem = (item: string) => {
@@ -188,6 +191,9 @@ function App() {
   return (
     <div>
       <div className="mb-3">
+        <ExpenseForm onSubmit={expense => setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])} />
+      </div>
+      <div className="mb-3">
         <ExpenseFilter
           onSelectCategory={category => {
             setSelectedCategory(category)
@@ -203,6 +209,9 @@ function App() {
       />
       <div className="mb-10">
         <h1> PRODUCT TRACKER </h1>
+      </div>
+      <div className="mb-20">
+        <CommandeForm onSubmit={product => setProducts([...products, { ...product, id: products.length + 1 }])} />{" "}
       </div>
 
       <div className="mb-10">

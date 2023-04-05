@@ -1,3 +1,4 @@
+import { productsCategory } from "./ProductList"
 interface Props {
   onSelectCatagory: (category: string) => void
 }
@@ -10,10 +11,9 @@ export const CommandFilter = ({ onSelectCatagory }: Props) => {
       }}
     >
       <option value=""> All Categories</option>
-      <option value="Home&Garden">Home&Garden</option>
-      <option value="Beauty">Beauty</option>
-      <option value="Accesory">Accesory</option>
-      <option value="Sport">Sport</option>
+      {productsCategory.map(productCategory => (
+        <option key={productCategory}> {productCategory} </option>
+      ))}
     </select>
   )
 }
