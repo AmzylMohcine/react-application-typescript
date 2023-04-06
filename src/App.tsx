@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 // import Alert from "./Components/Alert"
 import Button from "./Components/Button/Button"
 // import ListGroup from "./Components/ListGroup/ListGroup"
@@ -18,6 +18,7 @@ import { ExpenseForm } from "./Expense-tracker/Components/ExpenseForm"
 
 import categories from "./Expense-tracker/categories"
 import { CommandeForm } from "./Commande-tracker/Components/CommandeForm"
+import { Pratique } from "./pratiques/Components/Pratique"
 
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
@@ -187,9 +188,27 @@ function App() {
 
   const visibleExpenses = selectedCategory ? expenses.filter(e => e.category === selectedCategory) : expenses
   const visibleProduct = selectedProduct ? products.filter(e => e.category === selectedProduct) : products
+  const ref = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus()
+      document.title = "UseEffect"
+    }
+  })
   return (
     <div>
+      <div className="mb-3">
+        <form action="">
+          <input ref={ref} className="form-control"></input>
+        </form>
+      </div>
+      {/* <div className="mb-20">
+        {" "}
+        <h1>Pratique</h1> <Pratique />
+      </div>
+      <div className="mb-50"></div>
+
       <div className="mb-3">
         <ExpenseForm onSubmit={expense => setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])} />
       </div>
@@ -227,7 +246,7 @@ function App() {
         onDelete={id => {
           setProducts(products.filter(e => e.id !== id))
         }}
-      />
+      /> */}
 
       {/* <Form /> */}
       {/* <ExpandableText maxChars={80}> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, laborum at! Et consectetur facilis asperiores fugiat, aut repudiandae pariatur, eum molestiae iusto magnam quia vero quae animi quo dicta obcaecati. At ipsam ullam iusto tenetur quisquam rerum quod sit reprehenderit eveniet. Repellendus quos fugit quae est officia eveniet rerum, amet laudantium enim officiis cupiditate! Facere iure quia magni possimus exercitationem! Veritatis perferendis enim illum facere deserunt? Fugiat, sapiente laudantium sit sequi consequuntur pariatur eveniet voluptatum ipsum distinctio et, aut reprehenderit atque! Quae laboriosam repellat voluptatum ducimus nihil, ea ullam repudiandae. Debitis perferendis, eos dolorum voluptates corporis libero at, quod dignissimos provident qui sint sed, asperiores ratione animi assumenda nulla necessitatibus ex illo cupiditate odit! Odit nemo molestiae et nobis consequatur.</ExpandableText> */}
