@@ -19,6 +19,7 @@ import { ExpenseForm } from "./Expense-tracker/Components/ExpenseForm"
 import categories from "./Expense-tracker/categories"
 import { CommandeForm } from "./Commande-tracker/Components/CommandeForm"
 import { Pratique } from "./pratiques/Components/Pratique"
+import { ProductList } from "./Expense-tracker/Components/ProductList"
 
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
@@ -190,18 +191,31 @@ function App() {
   const visibleProduct = selectedProduct ? products.filter(e => e.category === selectedProduct) : products
   const ref = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.focus()
-      document.title = "UseEffect"
-    }
-  })
+  // useEffect(() => {
+  //   if (ref.current) {
+  //     ref.current.focus()
+  //     document.title = "UseEffect"
+  //   }
+
+  // })
+  const [categ, setCateg] = useState("")
   return (
     <div>
       <div className="mb-3">
-        <form action="">
+        <select
+          className="form-select"
+          onChange={event => {
+            setCateg(event.target.value)
+          }}
+        >
+          <option value="">ALL</option>
+          <option value="Clothing">Clothing</option>
+          <option value="HouseHolding">HouseHolding</option>
+        </select>
+        <ProductList category={categ} />
+        {/* <form action="">
           <input ref={ref} className="form-control"></input>
-        </form>
+        </form> */}
       </div>
       {/* <div className="mb-20">
         {" "}
