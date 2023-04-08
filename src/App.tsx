@@ -20,6 +20,7 @@ import categories from "./Expense-tracker/categories"
 import { CommandeForm } from "./Commande-tracker/Components/CommandeForm"
 import { Pratique } from "./pratiques/Components/Pratique"
 import { ProductList } from "./Expense-tracker/Components/ProductList"
+import { CmmandList } from "./CmmandList"
 
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
@@ -199,6 +200,8 @@ function App() {
 
   // })
   const [categ, setCateg] = useState("")
+  const [cmd, setCmd] = useState("")
+
   return (
     <div>
       <div className="mb-3">
@@ -213,6 +216,19 @@ function App() {
           <option value="HouseHolding">HouseHolding</option>
         </select>
         <ProductList category={categ} />
+
+        <select
+          className="form-select"
+          onChange={event => {
+            setCmd(event.target.value)
+          }}
+        >
+          <option value=""> Pratique </option>
+          <option value="Home">Home</option>
+          <option value="Accesory">Accesory</option>
+        </select>
+
+        <CmmandList command={cmd} />
         {/* <form action="">
           <input ref={ref} className="form-control"></input>
         </form> */}

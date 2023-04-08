@@ -5,7 +5,7 @@ export const ProductList = ({ category }: { category: string }) => {
 
   useEffect(() => {
     console.log("Fetching products in ", category)
-    setPro(["Gradiant", "Nosense"])
+    setPro(["GradiantD", "Nosense"])
   }, [category])
-  return <div>ProductList</div>
+  return <div>{category}</div>
 }
