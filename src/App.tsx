@@ -23,7 +23,7 @@ import { ProductList } from "./Expense-tracker/Components/ProductList"
 import { CmmandList } from "./CmmandList"
 import { number } from "zod"
 import { TodoList } from "./Components/TodoList"
-import axios from "axios"
+import axios, { AxiosError, CanceledError } from "axios"
 
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
@@ -199,18 +199,52 @@ function App() {
   const [cmd, setCmd] = useState("")
 
   const [todoList, setTodoList] = useState([])
+  const baseUrl = "https://jsonplaceholder.typicode.com/users"
+
+  const [error, setError] = useState("")
 
   interface Users {
     id: number
     name: string
+    phone: string
   }
   const [users, setUsers] = useState<Users[]>([])
 
+  // using try catch and async
+  // useEffect(() => {
+  //   const fetchUrl = async () => {
+  //     try {
+  //       const response = await axios.get<Users[]>(baseUrl)
+  //       setUsers(response.data)
+  //     } catch (e) {
+  //       setError((e as AxiosError).message)
+  //     }
+  //   }
+
+  //   fetchUrl()
+
+  // }, [])
+
   useEffect(() => {
-    axios.get<Users[]>("https://jsonplaceholder.typicode.com/users").then(res => setUsers(res.data))
+    //abort cancel operation
+    const controller = new AbortController()
+    axios
+      .get(baseUrl, { signal: controller.signal })
+      .then(res => setUsers(res.data))
+      .catch(err => {
+        if (err instanceof CanceledError) return
+        setError(err.message)
+      })
+
+    return () => controller.abort()
   }, [])
+
+  if (users === null) {
+    return
+  }
   return (
     <div>
+      {error && <p className="text-danger"> {error}</p>}
       {users.map(user => (
         <li key={user.id}> {user.name}</li>
       ))}
