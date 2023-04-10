@@ -23,6 +23,7 @@ import { ProductList } from "./Expense-tracker/Components/ProductList"
 import { CmmandList } from "./CmmandList"
 import { number } from "zod"
 import { TodoList } from "./Components/TodoList"
+import axios from "axios"
 
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
@@ -194,22 +195,27 @@ function App() {
   const visibleProduct = selectedProduct ? products.filter(e => e.category === selectedProduct) : products
   const ref = useRef<HTMLInputElement>(null)
 
-  // useEffect(() => {
-  //   if (ref.current) {
-  //     ref.current.focus()
-  //     document.title = "UseEffect"
-  //   }
-
-  // })
   const [categ, setCateg] = useState("")
   const [cmd, setCmd] = useState("")
 
   const [todoList, setTodoList] = useState([])
 
+  interface Users {
+    id: number
+    name: string
+  }
+  const [users, setUsers] = useState<Users[]>([])
+
+  useEffect(() => {
+    axios.get<Users[]>("https://jsonplaceholder.typicode.com/users").then(res => setUsers(res.data))
+  }, [])
   return (
     <div>
-      <TodoList />
-      <Pratique />
+      {users.map(user => (
+        <li key={user.id}> {user.name}</li>
+      ))}
+      {/* <TodoList />
+      <Pratique /> */}
       {/* <div className="mb-3">
         <select
           className="form-select"
