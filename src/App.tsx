@@ -21,6 +21,8 @@ import { CommandeForm } from "./Commande-tracker/Components/CommandeForm"
 import { Pratique } from "./pratiques/Components/Pratique"
 import { ProductList } from "./Expense-tracker/Components/ProductList"
 import { CmmandList } from "./CmmandList"
+import { number } from "zod"
+import { TodoList } from "./Components/TodoList"
 
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
@@ -202,9 +204,13 @@ function App() {
   const [categ, setCateg] = useState("")
   const [cmd, setCmd] = useState("")
 
+  const [todoList, setTodoList] = useState([])
+
   return (
     <div>
-      <div className="mb-3">
+      <TodoList />
+      <Pratique />
+      {/* <div className="mb-3">
         <select
           className="form-select"
           onChange={event => {
@@ -228,11 +234,11 @@ function App() {
           <option value="Accesory">Accesory</option>
         </select>
 
-        <CmmandList command={cmd} />
-        {/* <form action="">
+        <CmmandList command={cmd} /> */}
+      {/* <form action="">
           <input ref={ref} className="form-control"></input>
         </form> */}
-      </div>
+      {/* </div> */}
       {/* <div className="mb-20">
         {" "}
         <h1>Pratique</h1> <Pratique />
