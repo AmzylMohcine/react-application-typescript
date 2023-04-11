@@ -201,14 +201,14 @@ function App() {
   const [todoList, setTodoList] = useState([])
   const baseUrl = "https://jsonplaceholder.typicode.com/users"
 
-  const [error, setError] = useState("")
-
   interface Users {
     id: number
     name: string
     phone: string
   }
   const [users, setUsers] = useState<Users[]>([])
+  const [error, setError] = useState("")
+  const [isLoading, setIsloading] = useState(false)
 
   // using try catch and async
   // useEffect(() => {
@@ -228,12 +228,17 @@ function App() {
   useEffect(() => {
     //abort cancel operation
     const controller = new AbortController()
+    setIsloading(true)
     axios
       .get(baseUrl, { signal: controller.signal })
-      .then(res => setUsers(res.data))
+      .then(res => {
+        setUsers(res.data)
+        setIsloading(false)
+      })
       .catch(err => {
         if (err instanceof CanceledError) return
         setError(err.message)
+        setIsloading(false)
       })
 
     return () => controller.abort()
@@ -245,6 +250,7 @@ function App() {
   return (
     <div>
       {error && <p className="text-danger"> {error}</p>}
+      {isLoading && <div className="spinner-border"></div>}
       {users.map(user => (
         <li key={user.id}> {user.name}</li>
       ))}
