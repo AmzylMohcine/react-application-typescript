@@ -41,10 +41,14 @@ export const Pratique = () => {
   }
 
   //delete from list
-  const deleteById = id => {
-    setList(value => {
-      return value.filter(list => list.id !== id)
-    })
+  const deleteById = (list: List) => {
+    setList(prevList => prevList.filter(l => l.id !== list.id))
+  }
+
+  //modify
+  const modifyItem = (list: List) => {
+    const updatedItem = { ...list, text: list.text + "!" }
+    setList(prevlist => prevlist.map(item => (item.id === list.id ? updatedItem : item)))
   }
 
   return (
@@ -66,9 +70,13 @@ export const Pratique = () => {
               {" "}
               {item.text}
             </li>
-            <button key={item.id} onClick={() => deleteById(item.id)}>
+            <button key={item.id} onClick={() => deleteById(item)}>
               {" "}
-              Delete {item.text}
+              Delete
+            </button>
+            <button key={item.id} onClick={() => modifyItem(item)}>
+              {" "}
+              Modify
             </button>
           </>
         ))}

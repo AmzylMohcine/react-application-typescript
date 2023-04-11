@@ -23,7 +23,8 @@ import { ProductList } from "./Expense-tracker/Components/ProductList"
 import { CmmandList } from "./CmmandList"
 import { number } from "zod"
 import { TodoList } from "./Components/TodoList"
-import axios, { AxiosError, CanceledError } from "axios"
+
+import apiClient, { CanceledError } from "./Services/api-client"
 
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
@@ -229,8 +230,8 @@ function App() {
     //abort cancel operation
     const controller = new AbortController()
     setIsloading(true)
-    axios
-      .get(baseUrl, { signal: controller.signal })
+    apiClient
+      .get<Users[]>("/users", { signal: controller.signal })
       .then(res => {
         setUsers(res.data)
         setIsloading(false)
@@ -247,13 +248,75 @@ function App() {
   if (users === null) {
     return
   }
+
+  const handleDelete = (user: Users) => {
+    const originalUsers = [...users]
+    setUsers(users.filter(u => u.id !== user.id))
+
+    apiClient.delete("/users" + user.id).catch(err => {
+      setError(err.message)
+      setUsers(originalUsers)
+    })
+  }
+  const addUser = () => {
+    const originalUsers = [...users]
+    const newUser = { id: 0, name: "new User", phone: "070707077" }
+    setUsers([...users, newUser])
+
+    apiClient
+      .post("/users", newUser)
+      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+      .catch(err => {
+        setError(err.message)
+        setUsers(originalUsers)
+      })
+  }
+  const updatedUser = (user: Users) => {
+    const originalUsers = [...users]
+    const updatedUser = { ...user, name: user.name + "!" }
+    setUsers(users.map(u => (u.id === user.id ? updatedUser : u)))
+
+    // apiClient.patch("/users" + user.id, updatedUser).catch(err => {
+    //   setError(err.message)
+    //   setUsers(originalUsers)
+    // })
+  }
   return (
     <div>
       {error && <p className="text-danger"> {error}</p>}
       {isLoading && <div className="spinner-border"></div>}
+      <button
+        className="btn btn-primary mb-3"
+        onClick={() => {
+          addUser()
+        }}
+      >
+        {" "}
+        Add User{" "}
+      </button>
       {users.map(user => (
-        <li key={user.id}> {user.name}</li>
+        <ul className="list-group">
+          <li key={user.id} className="list-group-item d-flex justify-content-between">
+            {" "}
+            {user.name}
+            <div>
+              <button
+                className="btn btn-outline-secondary mx-1"
+                onClick={() => {
+                  updatedUser(user)
+                }}
+              >
+                Update{" "}
+              </button>
+              <button className="btn btn-outline-danger" onClick={() => handleDelete(user)}>
+                {" "}
+                Delete{" "}
+              </button>
+            </div>
+          </li>
+        </ul>
       ))}
+
       {/* <TodoList />
       <Pratique /> */}
       {/* <div className="mb-3">
