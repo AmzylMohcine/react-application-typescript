@@ -24,7 +24,8 @@ import { CmmandList } from "./CmmandList"
 import { number } from "zod"
 import { TodoList } from "./Components/TodoList"
 
-import apiClient, { CanceledError } from "./Services/api-client"
+import { CanceledError } from "./Services/api-client"
+import userService, { Users } from "./Services/userService"
 
 function App() {
   // const items = ["new york", "tanger", "san mames", "hello"]
@@ -202,11 +203,6 @@ function App() {
   const [todoList, setTodoList] = useState([])
   const baseUrl = "https://jsonplaceholder.typicode.com/users"
 
-  interface Users {
-    id: number
-    name: string
-    phone: string
-  }
   const [users, setUsers] = useState<Users[]>([])
   const [error, setError] = useState("")
   const [isLoading, setIsloading] = useState(false)
@@ -227,11 +223,10 @@ function App() {
   // }, [])
 
   useEffect(() => {
-    //abort cancel operation
-    const controller = new AbortController()
     setIsloading(true)
-    apiClient
-      .get<Users[]>("/users", { signal: controller.signal })
+
+    const { request, cancel } = userService.getAllUsers()
+    request
       .then(res => {
         setUsers(res.data)
         setIsloading(false)
@@ -242,7 +237,7 @@ function App() {
         setIsloading(false)
       })
 
-    return () => controller.abort()
+    return () => cancel()
   }, [])
 
   if (users === null) {
@@ -253,19 +248,19 @@ function App() {
     const originalUsers = [...users]
     setUsers(users.filter(u => u.id !== user.id))
 
-    apiClient.delete("/users" + user.id).catch(err => {
+    userService.deletUser(user.id).catch(err => {
       setError(err.message)
       setUsers(originalUsers)
     })
   }
   const addUser = () => {
     const originalUsers = [...users]
-    const newUser = { id: 0, name: "new User", phone: "070707077" }
+    const newUser = { id: 15, name: "new User", phone: "070707077" }
     setUsers([...users, newUser])
 
-    apiClient
-      .post("/users", newUser)
-      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+    userService
+      .addUser(newUser)
+      .then(({ data: savedUser }) => setUsers([...users, savedUser]))
       .catch(err => {
         setError(err.message)
         setUsers(originalUsers)
@@ -276,10 +271,10 @@ function App() {
     const updatedUser = { ...user, name: user.name + "!" }
     setUsers(users.map(u => (u.id === user.id ? updatedUser : u)))
 
-    // apiClient.patch("/users" + user.id, updatedUser).catch(err => {
-    //   setError(err.message)
-    //   setUsers(originalUsers)
-    // })
+    userService.updateUser(updatedUser).catch(err => {
+      setError(err.message)
+      setUsers(originalUsers)
+    })
   }
   return (
     <div>
