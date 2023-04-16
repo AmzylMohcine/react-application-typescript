@@ -1,4 +1,5 @@
 import apiClient, { CanceledError } from "./api-client"
+import create from "./http-service"
 
 export interface Users {
   id: number
@@ -6,30 +7,6 @@ export interface Users {
   phone: string
 }
 
-class userService {
-  getAllUsers() {
-    const controller = new AbortController()
-    const request = apiClient.get<Users[]>("/users", { signal: controller.signal })
+class userService {}
 
-    return {
-      request,
-      cancel: () => {
-        controller.abort()
-      }
-    }
-  }
-
-  deletUser(id: number) {
-    return apiClient.delete("/users" + id)
-  }
-
-  addUser(user: Users) {
-    return apiClient.post("/users", user)
-  }
-
-  updateUser(user: Users) {
-    return apiClient.patch("/users" + user.id, user)
-  }
-}
-
-export default new userService()
+export default create("/users")
